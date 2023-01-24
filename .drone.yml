@@ -20,6 +20,13 @@ steps:
       password:
         from_secret: docker_password
 
+  - name: send telegram notification
+    image: appleboy/drone-telegram
+    settings:
+      token:
+        from_secret: tg_token
+      to: 91972279
+
 trigger:
   branch:
     - main
