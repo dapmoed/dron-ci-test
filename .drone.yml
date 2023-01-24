@@ -5,12 +5,18 @@ name: default
 steps:
   - name: greeting
     image: golang:1.18
+    volumes:
+      - name: deps
+        path: /go
     commands:
       - go mod tidy
       - go test
 
   - name: publish
     image: plugins/docker
+    volumes:
+      - name: deps
+        path: /go
     settings:
       repo: dapmoed/dron-ci-test
       tags:
@@ -20,7 +26,7 @@ steps:
       password:
         from_secret: docker_password
 
-  - name: send telegram notification
+  - name: notify
     image: appleboy/drone-telegram
     settings:
       token:
@@ -30,3 +36,6 @@ steps:
 trigger:
   branch:
     - main
+volumes:
+  - name: deps
+    temp: {}
