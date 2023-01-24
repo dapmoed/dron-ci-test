@@ -6,8 +6,9 @@ steps:
   - name: greeting
     image: golang:1.18
     commands:
-      - go build
+      - go mod tidy
       - go test
+      - echo ${DOCKER_USERNAME}
 
   - name: publish
     image: plugins/docker
