@@ -9,6 +9,15 @@ steps:
       - go build
       - go test
 
+  - name: publish
+    image: plugins/docker
+    settings:
+      username: ${DOCKER_USERNAME}
+      password: ${DOCKER_PASSWORD}
+      repo: dapmoed/dron-ci-test
+      tags:
+        - latest
+
 trigger:
   branch:
     - main
