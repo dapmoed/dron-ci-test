@@ -13,11 +13,10 @@ steps:
     image: plugins/docker
     settings:
       repo: dapmoed/dron-ci-test
-      environment:
-        username:
-          from_secret: docker_username
-        password:
-          from_secret: docker_password
+      username:
+        from_secret: docker_username
+      password:
+        from_secret: docker_password
     commands:
       - echo "You can call the secrets like this examples below."
       - echo $USERNAME
