@@ -1,0 +1,9 @@
+kind: pipeline
+name: default
+
+steps:
+  - name: Build golang app
+    image: golang
+    commands:
+      - go test
+      - go build
