@@ -13,12 +13,12 @@ steps:
     image: plugins/docker
     settings:
       environment:
-        DOCKER_USERNAME:
+        username:
           from_secret: docker_username
-        DOCKER_PASSWORD:
+        password:
           from_secret: docker_password
-      username: $DOCKER_USERNAME
-      password: $DOCKER_PASSWORD
+      username: $USERNAME
+      password: $PASSWORD
       repo: dapmoed/dron-ci-test
       tags:
         - latest
