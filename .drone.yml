@@ -25,7 +25,7 @@ steps:
     settings:
       token:
         from_secret: tg_token
-      to: 91972279
+      to: -1001731607931
 
 trigger:
   branch:
