@@ -19,14 +19,14 @@ steps:
           from_secret: docker_password
       username: $USERNAME
       password: $PASSWORD
-      commands:
-        - echo "You can call the secrets like this examples below."
-        - echo $USERNAME
-        - echo $PASSWORD
-        - echo "In both cases, and for security reasons, you wi
       repo: dapmoed/dron-ci-test
       tags:
         - latest
+    commands:
+      - echo "You can call the secrets like this examples below."
+      - echo $USERNAME
+      - echo $PASSWORD
+      - echo "In both cases, and for security reasons, you wi
 
 trigger:
   branch:
