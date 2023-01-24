@@ -8,11 +8,15 @@ steps:
     commands:
       - go mod tidy
       - go test
-      - echo ${DOCKER_USERNAME}
 
   - name: publish
     image: plugins/docker
     settings:
+      environment:
+        DOCKER_USERNAME:
+          from_secret: docker_username
+        DOCKER_PASSWORD:
+          from_secret: docker_password
       username: ${DOCKER_USERNAME}
       password: ${DOCKER_PASSWORD}
       repo: dapmoed/dron-ci-test
