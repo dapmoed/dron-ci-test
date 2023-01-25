@@ -25,6 +25,7 @@ steps:
     settings:
       playbook: ansible/playbook.yml
       inventory: ansible/inventory
+      syntax_check: true
 
   - name: notify
     image: appleboy/drone-telegram
