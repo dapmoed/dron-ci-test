@@ -20,6 +20,11 @@ steps:
       password:
         from_secret: docker_password
 
+  - name: deploy
+    image: plugins/ansible:3
+    settings:
+      playbook: ansible/playbook.yml
+
   - name: notify
     image: appleboy/drone-telegram
     settings:

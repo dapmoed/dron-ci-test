@@ -1,0 +1,37 @@
+---
+-   name: Deploy application using docker
+    hosts: dev_servers
+    remote_user: root
+    become: true
+    vars_files:
+      - ["vars/{{ env }}.yaml"]
+    tasks:
+      - name: login into docker registry
+        docker_login:
+          username: "{{ docker_registry_username }}"
+          password: "{{ docker_registry_password }}"
+        tags:
+          - login
+
+      - name: pull landing docker image
+        docker_image:
+          force_source: true
+          state: present
+          name: "{{ docker_image_app }}:{{ docker_tag }}"
+          source: pull
+        tags:
+          - golang_app
+
+      - name: run app via docker
+        docker_container:
+          name: "{{ app_name }}"
+          image: "{{ docker_image_app}}:{{ docker_tag }}"
+          state: started
+          restart: true
+          restart_policy: always
+          ports:
+            - "9000:8080"
+          env:
+            NODE_ENV: "{{env}}"
+        tags:
+          - golang_app
