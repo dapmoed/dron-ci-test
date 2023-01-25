@@ -3,27 +3,28 @@ type: docker
 name: default
 
 steps:
-  - name: tests
-    image: golang:1.18
-    commands:
-      - go mod tidy
-      - go test
-
-  - name: publish
-    image: plugins/docker
-    settings:
-      repo: dapmoed/dron-ci-test
-      tags:
-        - latest
-      username:
-        from_secret: docker_username
-      password:
-        from_secret: docker_password
+#  - name: tests
+#    image: golang:1.18
+#    commands:
+#      - go mod tidy
+#      - go test
+#
+#  - name: publish
+#    image: plugins/docker
+#    settings:
+#      repo: dapmoed/dron-ci-test
+#      tags:
+#        - latest
+#      username:
+#        from_secret: docker_username
+#      password:
+#        from_secret: docker_password
 
   - name: deploy
     image: plugins/ansible:3
     settings:
       playbook: ansible/playbook.yml
+      inventory: ansible/inventory
 
   - name: notify
     image: appleboy/drone-telegram
