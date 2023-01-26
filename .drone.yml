@@ -12,7 +12,7 @@ steps:
   - name: publish
     image: plugins/docker
     settings:
-      repo: dapmoed/${DRONE_REPO_NAME}
+      repo: ${docker_username}/${DRONE_REPO_NAME}
       tags:
         - latest
       username:
@@ -48,6 +48,10 @@ steps:
       token:
         from_secret: tg_token
       to: -1001731607931
+    when:
+      status:
+        - success
+        - failure
 
 trigger:
   branch:
