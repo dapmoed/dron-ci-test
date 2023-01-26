@@ -23,7 +23,7 @@ steps:
   - name: Syntax Check
     image: plugins/ansible:3
     settings:
-#      become: true
+      become: true
       playbook: ansible/playbook.yaml
       inventory: ansible/inventory
       private_key:
@@ -34,7 +34,7 @@ steps:
   - name: Apply Playbook
     image: plugins/ansible
     settings:
-#      become: true
+      become: true
       playbook: ansible/playbook.yaml
       inventory: ansible/inventory
       private_key:
