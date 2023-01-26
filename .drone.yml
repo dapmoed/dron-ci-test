@@ -12,7 +12,7 @@ steps:
   - name: publish
     image: plugins/docker
     settings:
-      repo: dapmoed/dron-ci-test
+      repo: dapmoed/$DRONE_REPO_NAME
       tags:
         - latest
       username:
