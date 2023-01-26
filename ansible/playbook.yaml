@@ -4,15 +4,8 @@
     remote_user: root
     become: true
     vars_files:
-      - ["vars/{{ env }}.yaml"]
+      - ["dev.yaml"]
     tasks:
-      - name: login into docker registry
-        docker_login:
-          username: "{{ docker_registry_username }}"
-          password: "{{ docker_registry_password }}"
-        tags:
-          - login
-
       - name: pull landing docker image
         docker_image:
           force_source: true
@@ -32,6 +25,6 @@
           ports:
             - "9000:8080"
           env:
-            NODE_ENV: "{{env}}"
+            NODE_ENV: "dev"
         tags:
           - golang_app
