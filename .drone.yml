@@ -3,22 +3,22 @@ type: docker
 name: default
 
 steps:
-#  - name: tests
-#    image: golang:1.18
-#    commands:
-#      - go mod tidy
-#      - go test
-#
-#  - name: publish
-#    image: plugins/docker
-#    settings:
-#      repo: dapmoed/dron-ci-test
-#      tags:
-#        - latest
-#      username:
-#        from_secret: docker_username
-#      password:
-#        from_secret: docker_password
+  - name: tests
+    image: golang:1.18
+    commands:
+      - go mod tidy
+      - go test
+
+  - name: publish
+    image: plugins/docker
+    settings:
+      repo: dapmoed/dron-ci-test
+      tags:
+        - latest
+      username:
+        from_secret: docker_username
+      password:
+        from_secret: docker_password
 
   - name: Syntax Check
     image: plugins/ansible:3
@@ -41,7 +41,6 @@ steps:
         from_secret: ansible_private_key
       ssh_extra_args: "-o StrictHostKeyChecking=no"
       verbose: 0
-      diff: true
 
   - name: notify
     image: appleboy/drone-telegram
