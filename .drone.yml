@@ -38,7 +38,7 @@ steps:
       playbook: ansible/playbook.yaml
       inventory: ansible/inventory
       private_key:
-        from_secret: drone_ssh_priv
+        from_secret: drone_ssh_private_key
       ssh_extra_args: "-o StrictHostKeyChecking=no"
       diff: true
 
