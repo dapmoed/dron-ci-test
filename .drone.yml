@@ -2,10 +2,6 @@ kind: pipeline
 type: docker
 name: default
 
-environment:
-  USERNAME:
-    from_secret: docker_username
-
 steps:
   - name: tests
     image: golang:1.18
@@ -16,7 +12,7 @@ steps:
   - name: publish
     image: plugins/docker
     settings:
-      repo: $USERNAME/${DRONE_REPO_NAME}
+      repo: dapmoed/${DRONE_REPO_NAME}
       tags:
         - latest
       username:
