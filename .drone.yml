@@ -11,8 +11,11 @@ steps:
 
   - name: publish
     image: plugins/docker
+    environment:
+      USERNAME:
+        from_secret: docker_username
     settings:
-      repo: ${docker_username}/${DRONE_REPO_NAME}
+      repo: $USERNAME/${DRONE_REPO_NAME}
       tags:
         - latest
       username:
