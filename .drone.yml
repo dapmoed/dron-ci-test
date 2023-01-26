@@ -40,7 +40,7 @@ steps:
       private_key:
         from_secret: ansible_private_key
       ssh_extra_args: "-o StrictHostKeyChecking=no"
-      verbose: 3
+      verbose: 0
       diff: true
 
   - name: notify
