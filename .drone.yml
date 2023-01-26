@@ -20,10 +20,21 @@ steps:
 #      password:
 #        from_secret: docker_password
 
+  - name: Syntax Check
+    image: plugins/ansible
+    settings:
+      become: true
+      playbook: ansible/playbook.yaml
+      inventory: inventory
+      private_key:
+        from_secret: drone_ssh_private_key
+      ssh_extra_args: "-o StrictHostKeyChecking=no"
+      syntax_check: true
+
   - name: deploy
     image: plugins/ansible:3
     settings:
-      playbook: ansible/playbook.yml
+      playbook: ansible/playbook.yaml
       inventory: ansible/inventory
       syntax_check: true
 
