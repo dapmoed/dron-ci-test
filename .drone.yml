@@ -2,11 +2,6 @@ kind: pipeline
 type: docker
 name: default
 
-volumes:
-  - name: cache
-    host:
-      path: /var/lib/cache
-
 steps:
   - name: restore-cache-with-filesystem
     image: meltwater/drone-cache
@@ -90,6 +85,11 @@ steps:
       status:
         - success
         - failure
+
+volumes:
+  - name: cache
+    host:
+      path: /var/lib/cache
 
 trigger:
   branch:
