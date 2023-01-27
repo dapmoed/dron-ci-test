@@ -21,7 +21,6 @@ steps:
   - name: tests
     image: golang:1.18
     commands:
-      - make drone-cache
       - go mod tidy
       - go test
 
