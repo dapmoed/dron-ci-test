@@ -88,8 +88,7 @@ steps:
 
 volumes:
   - name: cache
-    host:
-      path: /var/lib/cache
+    temp: {}
 
 trigger:
   branch:
