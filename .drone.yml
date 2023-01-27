@@ -3,21 +3,6 @@ type: docker
 name: default
 
 steps:
-  - name: restore-cache-with-filesystem
-    image: meltwater/drone-cache
-    pull: true
-    settings:
-      backend: "filesystem"
-      restore: true
-      cache_key: "volume"
-      archive_format: "gzip"
-      # filesystem_cache_root: "/tmp/cache"
-      mount:
-        - 'vendor'
-    volumes:
-      - name: cache
-        path: /tmp/cache
-
   - name: tests
     image: golang:1.18
     commands:
@@ -34,21 +19,6 @@ steps:
         from_secret: docker_username
       password:
         from_secret: docker_password
-
-  - name: rebuild-cache-with-filesystem
-    image: meltwater/drone-cache
-    pull: true
-    settings:
-      backend: "filesystem"
-      rebuild: true
-      cache_key: "volume"
-      archive_format: "gzip"
-      # filesystem_cache_root: "/tmp/cache"
-      mount:
-        - 'vendor'
-    volumes:
-      - name: cache
-        path: /tmp/cache
 
   - name: Syntax Check
     image: plugins/ansible:3
@@ -82,10 +52,6 @@ steps:
       status:
         - success
         - failure
-
-volumes:
-  - name: cache
-    temp: {}
 
 trigger:
   branch:
