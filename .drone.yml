@@ -2,15 +2,38 @@ kind: pipeline
 type: docker
 name: default
 
+volumes:
+  - name: cache
+    host:
+      path: /var/lib/cache
+
 steps:
+  - name: restore-cache-with-filesystem
+    image: meltwater/drone-cache
+    pull: true
+    settings:
+      backend: "filesystem"
+      restore: true
+      cache_key: "volume"
+      archive_format: "gzip"
+      # filesystem_cache_root: "/tmp/cache"
+      mount:
+        - 'vendor'
+    volumes:
+      - name: cache
+        path: /tmp/cache
+
   - name: tests
     image: golang:1.18
     commands:
+      - make drone-cache
       - go mod tidy
       - go test
 
   - name: publish
     image: plugins/docker
+    commands:
+      - make drone-cache
     settings:
       repo: dapmoed/${DRONE_REPO_NAME}
       tags:
@@ -19,6 +42,21 @@ steps:
         from_secret: docker_username
       password:
         from_secret: docker_password
+
+  - name: rebuild-cache-with-filesystem
+    image: meltwater/drone-cache
+    pull: true
+    settings:
+      backend: "filesystem"
+      rebuild: true
+      cache_key: "volume"
+      archive_format: "gzip"
+      # filesystem_cache_root: "/tmp/cache"
+      mount:
+        - 'vendor'
+    volumes:
+      - name: cache
+        path: /tmp/cache
 
   - name: Syntax Check
     image: plugins/ansible:3
