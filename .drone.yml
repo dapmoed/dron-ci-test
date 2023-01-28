@@ -5,18 +5,12 @@ name: default
 steps:
   - name: tests
     image: golang:1.18
-    volumes:
-      - name: cache
-        path: /go/pkg
     commands:
       - go mod tidy
       - go test
 
   - name: publish
     image: plugins/docker
-    volumes:
-      - name: cache
-        path: /go/pkg
     settings:
       repo: dapmoed/${DRONE_REPO_NAME}
       tags: ${DRONE_TAG}
@@ -62,8 +56,3 @@ trigger:
   branch:
     - main
     - dev
-
-volumes:
-  - name: cache
-    host:
-      path: /var/lib/cache
