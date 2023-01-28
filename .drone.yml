@@ -3,14 +3,10 @@ type: docker
 name: default
 
 steps:
-  - name: fetch
-    image: alpine/git
-    commands:
-      - git fetch --tags
-
   - name: tests
     image: golang:1.18
     commands:
+      - git fetch --tags
       - echo ${DRONE_TAG}
       - go mod tidy
       - go test
