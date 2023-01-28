@@ -57,3 +57,4 @@ steps:
 trigger:
   branch:
     - main
+    - dev
