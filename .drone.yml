@@ -6,6 +6,7 @@ steps:
   - name: tests
     image: golang:1.18
     commands:
+      - echo ${DRONE_TAG}
       - go mod tidy
       - go test
 
