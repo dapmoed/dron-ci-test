@@ -48,6 +48,7 @@
         docker_compose:
           project_src: /opt/dron-ci-test
           build: false
+          restarted: true
         register: output
 
 #       - name: deploy docker-compose
