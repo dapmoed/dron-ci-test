@@ -33,7 +33,7 @@
          docker_compose:
           project_name: "{{ app_name }}"
           definition:
-            "{{ app_name }}":
+            dron-ci-test:
               image: "{{ docker_image_app}}:{{ docker_tag }}"
               container_name: "{{ app_name }}"
               restart: always
