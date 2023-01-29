@@ -31,9 +31,9 @@
 
       - name: copy Docker Compose files
         copy:
-          src: {{ item }}
-          dest: /opt/dron-ci-test/{{ item }}
-        loop:
+          src: "{{ item }}"
+          dest: "/opt/dron-ci-test/{{ item }}"
+        with_items:
           - docker-compose.yml
 
 
