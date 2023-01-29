@@ -6,25 +6,42 @@
     vars_files:
       - ["dev.yaml"]
     tasks:
-      - name: pull landing docker image
-        docker_image:
-          force_source: true
-          state: present
-          name: "{{ docker_image_app }}:{{ docker_tag }}"
-          source: pull
-        tags:
-          - golang_app
+#      - name: pull landing docker image
+#        docker_image:
+#          force_source: true
+#          state: present
+#          name: "{{ docker_image_app }}:{{ docker_tag }}"
+#          source: pull
+#        tags:
+#          - golang_app
+#
+#      - name: run app via docker
+#        docker_container:
+#          name: "{{ app_name }}"
+#          image: "{{ docker_image_app}}:{{ docker_tag }}"
+#          state: started
+#          restart: true
+#          restart_policy: always
+#          ports:
+#            - "9000:8080"
+#          env:
+#            NODE_ENV: "dev"
+#        tags:
+#          - golang_app
 
-      - name: run app via docker
-        docker_container:
-          name: "{{ app_name }}"
-          image: "{{ docker_image_app}}:{{ docker_tag }}"
-          state: started
-          restart: true
-          restart_policy: always
-          ports:
-            - "9000:8080"
-          env:
-            NODE_ENV: "dev"
-        tags:
-          - golang_app
+      - community.docker.docker_compose:
+          project_name: "{{ app_name }}"
+          definition:
+            {{ app_name }}:
+              image: "{{ docker_image_app}}:{{ docker_tag }}"
+              container_name: {{ app_name }}
+              restart: always
+              networks:
+                - traefik-shared
+              labels:
+                - "traefik.enable=true"
+                - "traefik.http.routers.{{ app_name }}.entrypoints=https"
+                - "traefik.http.routers.{{ app_name }}.rule=Host(`api.sloin.ru`) && PathPrefix(`/{{ app_name }}`)"
+                - "traefik.http.routers.{{ app_name }}.tls=true"
+                - "traefik.http.routers.{{ app_name }}.tls.certresolver=le_resolver"
+                - "traefik.http.services.{{ app_name }}-service.loadbalancer.server.port=8080"

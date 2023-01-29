@@ -1,0 +1,21 @@
+version: '3'
+services:
+  test2:
+    image: dapmoed/dron-ci-test:latest
+    container_name: test2
+    restart: always
+    networks:
+      - traefik-shared
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.test2.entrypoints=https"
+      - "traefik.http.routers.test2.rule=Host(`api.sloin.ru`) && PathPrefix(`/test2`)"
+      - "traefik.http.routers.test2.tls=true"
+      - "traefik.http.routers.test2.tls.certresolver=le_resolver"
+      - "traefik.http.services.test2-service.loadbalancer.server.port=8080"
+
+networks:
+  # Докер сеть, в которой находится traefik.
+  traefik-shared:
+    name: traefik-shared
+    external: true
