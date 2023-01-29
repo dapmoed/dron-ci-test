@@ -29,6 +29,13 @@
 #        tags:
 #          - golang_app
 
+
+      - name: Create a directory if it does not exist
+        file:
+          path: /opt/dron-ci-test
+          state: directory
+          mode: '0755'
+
       - name: copy Docker Compose files
         copy:
           src: "{{ item }}"
