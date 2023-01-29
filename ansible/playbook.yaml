@@ -29,7 +29,8 @@
 #        tags:
 #          - golang_app
 
-      - community.docker.docker_compose:
+       - name: deploy docker-compose
+         docker_compose:
           project_name: "{{ app_name }}"
           definition:
             "{{ app_name }}":
