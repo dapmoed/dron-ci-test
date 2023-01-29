@@ -32,9 +32,9 @@
       - community.docker.docker_compose:
           project_name: "{{ app_name }}"
           definition:
-            {{ app_name }}:
+            "{{ app_name }}":
               image: "{{ docker_image_app}}:{{ docker_tag }}"
-              container_name: {{ app_name }}
+              container_name: "{{ app_name }}"
               restart: always
               networks:
                 - traefik-shared
