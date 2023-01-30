@@ -1,21 +1,21 @@
 version: '3'
 services:
-  dron-ci-test:
-    image: "{{ docker_image_app }}:latest"
-    container_name: dron-ci-test
+  {{ app_name }}:
+    image: "{{ docker.image }}:{{ docker.tag }}"
+    container_name: {{ app_name }}
     restart: always
     networks:
-      - traefik-shared
+      - {{ traefik.network }}
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.dron-ci-test.entrypoints=https"
-      - "traefik.http.routers.dron-ci-test.rule=Host(`api.sloin.ru`) && PathPrefix(`/dron-ci-test`)"
-      - "traefik.http.routers.dron-ci-test.tls=true"
-      - "traefik.http.routers.dron-ci-test.tls.certresolver=le_resolver"
-      - "traefik.http.services.dron-ci-test-service.loadbalancer.server.port=8080"
+      - "traefik.http.routers.{{ app_name }}.entrypoints=https"
+      - "traefik.http.routers.{{ app_name }}.rule=Host(`{{ traefik.api_host }}`) && PathPrefix(`{{ traefik.api_prefix }}`)"
+      - "traefik.http.routers.{{ app_name }}.tls=true"
+      - "traefik.http.routers.{{ app_name }}.tls.certresolver=le_resolver"
+      - "traefik.http.services.{{ app_name }}-service.loadbalancer.server.port=8080"
 
 networks:
   # Докер сеть, в которой находится traefik.
-  traefik-shared:
-    name: traefik-shared
+  {{ traefik.network }}:
+    name: {{ traefik.network }}
     external: true

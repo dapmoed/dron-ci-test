@@ -1,4 +1,10 @@
 ---
 app_name: "dron-ci-test"
-docker_tag: "latest"
-docker_image_app: "dapmoed/dron-ci-test"
+docker:
+  username: "dapmoed"
+  tag: "latest"
+  image: "{{ docker.username }}/{{ app_name }}"
+traefik:
+  api_host: "api.sloin.ru"
+  api_prefix: "/{{ app_name }}"
+  network: "traefik-shared"
