@@ -1,35 +1,7 @@
 ---
 -   name: Deploy application using docker
     hosts: all
-#    remote_user: root
-#    become: true
-#    vars_files:
-#      - ["dev_servers.yaml"]
     tasks:
-#      - name: pull landing docker image
-#        docker_image:
-#          force_source: true
-#          state: present
-#          name: "{{ docker_image_app }}:{{ docker_tag }}"
-#          source: pull
-#        tags:
-#          - golang_app
-#
-#      - name: run app via docker
-#        docker_container:
-#          name: "{{ app_name }}"
-#          image: "{{ docker_image_app}}:{{ docker_tag }}"
-#          state: started
-#          restart: true
-#          restart_policy: always
-#          ports:
-#            - "9000:8080"
-#          env:
-#            NODE_ENV: "dev"
-#        tags:
-#          - golang_app
-
-
       - name: Create a directory if it does not exist
         file:
           path: "{{ docker.path_compose }}"
@@ -42,14 +14,6 @@
           dest: "{{ docker.path_compose }}/docker-compose.yml"
           mode: '0644'
 
-#      - name: copy Docker Compose files
-#        copy:
-#          src: "{{ item }}"
-#          dest: "/opt/dron-ci-test/{{ item }}"
-#        with_items:
-#          - docker-compose.yml
-
-
       - name: Run `docker-compose up` again
         docker_compose:
           project_src: "{{ docker.path_compose }}"
@@ -57,23 +21,3 @@
           restarted: true
           pull: true
         register: output
-
-#       - name: deploy docker-compose
-#         docker_compose:
-#          project_name: "{{ app_name }}"
-#          definition:
-#            dron-ci-test:
-#              image: "{{ docker_image_app}}:{{ docker_tag }}"
-#              container_name: "{{ app_name }}"
-#              restart: always
-#              networks:
-#                - traefik-shared
-#              labels:
-#                - "traefik.enable=true"
-#                - "traefik.http.routers.{{ app_name }}.entrypoints=https"
-#                - "traefik.http.routers.{{ app_name }}.rule=Host(`api.sloin.ru`) && PathPrefix(`/{{ app_name }}`)"
-#                - "traefik.http.routers.{{ app_name }}.tls=true"
-#                - "traefik.http.routers.{{ app_name }}.tls.certresolver=le_resolver"
-#                - "traefik.http.services.{{ app_name }}-service.loadbalancer.server.port=8080"
-
-
