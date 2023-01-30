@@ -9,3 +9,4 @@ traefik:
   api_host: "api.sloin.ru"
   api_prefix: "/{{ app_name }}"
   network: "traefik-shared"
+  le_resolver: "le_resolver"

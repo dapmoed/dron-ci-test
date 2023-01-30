@@ -11,7 +11,7 @@ services:
       - "traefik.http.routers.{{ app_name }}.entrypoints=https"
       - "traefik.http.routers.{{ app_name }}.rule=Host(`{{ traefik.api_host }}`) && PathPrefix(`{{ traefik.api_prefix }}`)"
       - "traefik.http.routers.{{ app_name }}.tls=true"
-      - "traefik.http.routers.{{ app_name }}.tls.certresolver=le_resolver"
+      - "traefik.http.routers.{{ app_name }}.tls.certresolver={{ traefik.le_resolver }}"
       - "traefik.http.services.{{ app_name }}-service.loadbalancer.server.port=8080"
 
 networks:
