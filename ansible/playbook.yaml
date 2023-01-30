@@ -36,6 +36,12 @@
           state: directory
           mode: '0755'
 
+      - name: Template a file to /etc/file.conf
+        template:
+          src: docker-compose.yml.j2
+          dest: /opt/dron-ci-test/docker-compose2.yml
+          mode: '0644'
+
       - name: copy Docker Compose files
         copy:
           src: "{{ item }}"
