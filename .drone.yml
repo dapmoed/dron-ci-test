@@ -14,7 +14,6 @@ steps:
     settings:
       repo: dapmoed/${DRONE_REPO_NAME}
       tags: ${DRONE_TAG}
-      dockerfile: docker/Dockerfile
       username:
         from_secret: docker_username
       password:
