@@ -3,7 +3,7 @@ app_name: "dron-ci-test"
 docker:
   username: "dapmoed"
   tag: "latest"
-  image: "{{ username }}/{{ app_name }}"
+  image: "{{ docker.username }}/{{ app_name }}"
 traefik:
   api_host: "api.sloin.ru"
   api_prefix: "/{{ app_name }}"
