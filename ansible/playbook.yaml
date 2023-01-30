@@ -38,7 +38,7 @@
 
       - name: Template a file to /etc/file.conf
         template:
-          src: docker-compose.yml.j2
+          src: templates/docker-compose.yml.j2
           dest: "{{ docker.path_compose }}/docker-compose.yml"
           mode: '0644'
 
