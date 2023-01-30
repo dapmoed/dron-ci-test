@@ -4,6 +4,7 @@ username: dapmoed
 docker:
   tag: "latest"
   image: "{{ username }}/{{ app_name }}"
+  path_compose: "/opt/{{ app_name }}"
 traefik:
   api_host: "api.sloin.ru"
   api_prefix: "/{{ app_name }}"

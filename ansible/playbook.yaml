@@ -32,22 +32,22 @@
 
       - name: Create a directory if it does not exist
         file:
-          path: /opt/dron-ci-test
+          path: "{{ docker.path_compose }}"
           state: directory
           mode: '0755'
 
       - name: Template a file to /etc/file.conf
         template:
           src: docker-compose.yml.j2
-          dest: /opt/dron-ci-test/docker-compose2.yml
+          dest: "{{ docker.path_compose }}/docker-compose.yml"
           mode: '0644'
 
-      - name: copy Docker Compose files
-        copy:
-          src: "{{ item }}"
-          dest: "/opt/dron-ci-test/{{ item }}"
-        with_items:
-          - docker-compose.yml
+#      - name: copy Docker Compose files
+#        copy:
+#          src: "{{ item }}"
+#          dest: "/opt/dron-ci-test/{{ item }}"
+#        with_items:
+#          - docker-compose.yml
 
 
       - name: Run `docker-compose up` again
