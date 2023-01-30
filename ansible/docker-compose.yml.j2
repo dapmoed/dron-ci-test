@@ -1,11 +1,11 @@
 version: '3'
 services:
-  {{ app_name }}:
+  "{{ app_name }}":
     image: "{{ docker.image }}:{{ docker.tag }}"
-    container_name: {{ app_name }}
+    container_name: "{{ app_name }}"
     restart: always
     networks:
-      - {{ traefik.network }}
+      - "{{ traefik.network }}"
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.{{ app_name }}.entrypoints=https"
@@ -16,6 +16,6 @@ services:
 
 networks:
   # Докер сеть, в которой находится traefik.
-  {{ traefik.network }}:
-    name: {{ traefik.network }}
+  "{{ traefik.network }}":
+    name: "{{ traefik.network }}"
     external: true
