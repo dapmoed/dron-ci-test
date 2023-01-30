@@ -1,6 +1,6 @@
 ---
 -   name: Deploy application using docker
-    hosts: dev_servers
+#    hosts: dev_servers
 #    remote_user: root
 #    become: true
 #    vars_files:
