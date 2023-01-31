@@ -45,7 +45,7 @@ steps:
     image: appleboy/drone-telegram
     settings:
       token:
-        from_secret: tg_token
+        from_secret: telegram_token
       to: -1001731607931
     when:
       status:
