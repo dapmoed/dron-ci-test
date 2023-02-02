@@ -14,7 +14,6 @@ services:
       - "traefik.http.routers.{{ app_name }}.tls.certresolver={{ traefik.le_resolver }}"
       - "traefik.http.services.{{ app_name }}-service.loadbalancer.server.port=8080"
       - "traefik.http.routers.{{ app_name }}.middlewares=traefik-compress"
-      - "traefik.http.routers.{{ app_name }}.middlewares=bauth"
 
 networks:
   # Докер сеть, в которой находится traefik.
